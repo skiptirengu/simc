@@ -19,7 +19,20 @@ addons:
       - sourceline: 'ppa:ubuntu-toolchain-r/test'
     packages:
       - g++-5
-
+      
 script:
   # Build SimulationCraft
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cd engine && make CXX=g++-5 OPENSSL=1 optimized; fi
+  
+before_deploy:
+  # Set up git user name and tag this commit
+  - git config --local user.name "Skiptir Engu"
+  - git config --local user.email "skiptir.engu@yandex.com"
+  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+  - tar -czvf simc-engine.tar.gz ./simc
+  
+deploy:
+    provider: releases
+    api_key: $GITHUB_TOKEN
+    file: ./simc-engine.tar.gz
+    skip_cleanup: true
