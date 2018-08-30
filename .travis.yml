@@ -16,20 +16,20 @@ compiler:
 addons:
   apt:
     sources:
-      - sourceline: 'ppa:ubuntu-toolchain-r/test'
+      - ubuntu-toolchain-r-test
     packages:
       - g++-5
       
 script:
   # Build SimulationCraft
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cd engine && make CXX=g++-5 OPENSSL=1 optimized; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then make CXX=g++-5 DEBUG=0 OPENSSL=1 -C engine optimized -j 2; fi
   
 before_deploy:
   # Set up git user name and tag this commit
   - git config --local user.name "Skiptir Engu"
   - git config --local user.email "skiptir.engu@yandex.com"
   - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
-  - tar -czvf simc-engine.tar.gz ./simc
+  - tar -czvf simc-engine.tar.gz ./engine/simc
   
 deploy:
     provider: releases
