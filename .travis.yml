@@ -20,6 +20,6 @@ addons:
     packages:
       - g++-5
 
-install:
+script:
   # Build SimulationCraft
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cd engine && make CXX=g++-5 OPENSSL=1 optimized; fi
