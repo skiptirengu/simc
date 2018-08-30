@@ -12,7 +12,6 @@ dist: trusty
 
 compiler:
   - gcc
-  - clang
   
 addons:
   apt:
@@ -23,4 +22,4 @@ addons:
 
 install:
   # Build SimulationCraft
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then make CXX=g++-5 OPENSSL=1 optimized; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cd engine && make CXX=g++-5 OPENSSL=1 optimized; fi
