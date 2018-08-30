@@ -36,3 +36,5 @@ deploy:
     api_key: $GITHUB_TOKEN
     file: ./simc-engine.tar.gz
     skip_cleanup: true
+    on:
+      branch: bfa-dev
